@@ -1,11 +1,15 @@
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using music_album_webapp;
 using music_album_webapp.Entities;
+using music_album_webapp.Models;
+using music_album_webapp.Models.Validators;
 using music_album_webapp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +39,8 @@ builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
