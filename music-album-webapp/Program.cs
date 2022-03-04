@@ -38,6 +38,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+builder.Services.AddScoped<DataSeeder>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
@@ -63,9 +64,13 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 // Configure the HTTP request pipeline.
 var app = builder.Build();
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
 
 app.UseResponseCaching();
 app.UseCors("ClientApp");
+
+seeder.Seed();
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
