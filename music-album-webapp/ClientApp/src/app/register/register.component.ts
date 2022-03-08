@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Distribution} from "../models/Distribution";
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   invalidRegister: boolean;
+  distributions: Array<Distribution> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,8 +21,12 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
-
   ngOnInit(): void {
+    this.initForm();
+    this.getDistributions();
+  }
+
+  initForm(): void {
     this.form = this.formBuilder.group({
       email: '',
       password: '',
@@ -29,6 +35,22 @@ export class RegisterComponent implements OnInit {
       lastName: null,
       roleId: 2,
       distributionId: 4,
+    });
+  }
+
+  getDistributions(): void {
+    this.http.get("https://localhost:5003/api/distributions", {
+      responseType: "text",
+    }).subscribe((data) => {
+
+      const parsedData = JSON.parse(data);
+
+      parsedData.forEach((el: { id: number; name: string; }) => {
+        if (el.id != null && el.name != null) {
+          this.distributions.push(new Distribution(el.id, el.name));
+        }
+      })
+
     });
   }
 

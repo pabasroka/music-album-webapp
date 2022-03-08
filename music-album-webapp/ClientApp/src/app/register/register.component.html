@@ -27,6 +27,17 @@
       <label for="lastName">Nazwisko</label>
     </div>
 
+    <div class="form-group">
+      <label for="distributionId">Dystrybutor:</label>
+      <select formControlName="distributionId" id="distributionId" class="form-control" required>
+        <option
+          *ngFor="let distribution of distributions"
+          value="{{ distribution.id }}">
+          {{ distribution.name }}
+        </option>
+      </select>
+    </div>
+
     <div *ngIf="invalidRegister" style="color: red;">
       Nieprawidłowe dane
     </div>
