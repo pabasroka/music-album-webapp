@@ -21,6 +21,38 @@ namespace music_album_webapp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("music_album_webapp.Entities.Album", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DistributionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Version")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DistributionId");
+
+                    b.ToTable("Albums", (string)null);
+                });
+
             modelBuilder.Entity("music_album_webapp.Entities.Distribution", b =>
                 {
                     b.Property<int>("Id")
@@ -53,6 +85,38 @@ namespace music_album_webapp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
+                });
+
+            modelBuilder.Entity("music_album_webapp.Entities.Track", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlbumId");
+
+                    b.ToTable("Tracks", (string)null);
                 });
 
             modelBuilder.Entity("music_album_webapp.Entities.User", b =>
@@ -92,6 +156,28 @@ namespace music_album_webapp.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("music_album_webapp.Entities.Album", b =>
+                {
+                    b.HasOne("music_album_webapp.Entities.Distribution", "Distribution")
+                        .WithMany("Albums")
+                        .HasForeignKey("DistributionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Distribution");
+                });
+
+            modelBuilder.Entity("music_album_webapp.Entities.Track", b =>
+                {
+                    b.HasOne("music_album_webapp.Entities.Album", "Album")
+                        .WithMany("Tracks")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+                });
+
             modelBuilder.Entity("music_album_webapp.Entities.User", b =>
                 {
                     b.HasOne("music_album_webapp.Entities.Distribution", "Distribution")
@@ -109,6 +195,16 @@ namespace music_album_webapp.Migrations
                     b.Navigation("Distribution");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("music_album_webapp.Entities.Album", b =>
+                {
+                    b.Navigation("Tracks");
+                });
+
+            modelBuilder.Entity("music_album_webapp.Entities.Distribution", b =>
+                {
+                    b.Navigation("Albums");
                 });
 #pragma warning restore 612, 618
         }

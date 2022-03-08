@@ -19,5 +19,7 @@ public class DataContext : DbContext
         modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new DistributionEntityTypeConfiguration());
         modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new TrackEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new AlbumEntityTypeConfiguration());
     }
 }
