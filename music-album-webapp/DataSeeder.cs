@@ -35,6 +35,13 @@ public class DataSeeder
                 _dataContext.Users.AddRange(users);
                 _dataContext.SaveChanges();
             }
+            
+            if (!_dataContext.Albums.Any())
+            {
+                var albums = GetAlbums();
+                _dataContext.Albums.AddRange(albums);
+                _dataContext.SaveChanges();
+            }
         }
     }
 
@@ -109,4 +116,75 @@ public class DataSeeder
 
         return users;
     }
+
+    private IEnumerable<Album> GetAlbums()
+    {
+        var albums = new List<Album>()
+        {
+            new Album()
+            {
+                Title = "Hotel Maffija",
+                Author = "SB Maffija",
+                Version = "1.0",
+                ReleaseYear = 2020,
+                DistributionId = 4,
+                Tracks = new List<Track>()
+                {
+                    new Track()
+                    {
+                        Title = "Biorę się w garść",
+                        Duration = 167,
+                        Author = "SBM",
+                        ReleaseYear = 2020,
+                    }
+                }
+            },
+            new Album()
+            {
+                Title = "Hotel Maffija 2",
+                Author = "SB Maffija",
+                Version = "1.1",
+                ReleaseYear = 2022,
+                DistributionId = 4,
+                Tracks = new List<Track>()
+                {
+                    new Track()
+                    {
+                        Title = "Lawenda",
+                        Duration = 279,
+                        Author = "SBM",
+                        ReleaseYear = 2022,
+                    }
+                }
+            },
+            new Album()
+            {
+                Title = "Europa",
+                Author = "Taco Hemingway",
+                Version = "1.1",
+                ReleaseYear = 2020,
+                DistributionId = 2,
+                Tracks = new List<Track>()
+                {
+                    new Track()
+                    {
+                        Title = "Luxembourg",
+                        Duration = 323,
+                        Author = "Taco Hemingway",
+                        ReleaseYear = 2020,
+                    },
+                    new Track()
+                    {
+                        Title = "Ortalion",
+                        Duration = 269,
+                        Author = "Taco Hemingway",
+                        ReleaseYear = 2020,
+                    }
+                }
+            },
+        };
+
+        return albums;
+    }
+    
 }

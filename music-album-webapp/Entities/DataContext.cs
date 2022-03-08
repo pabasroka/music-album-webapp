@@ -13,6 +13,8 @@ public class DataContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<Distribution> Distributions { get; set; }
+    public DbSet<Album> Albums { get; set; }
+    public DbSet<Track> Tracks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
