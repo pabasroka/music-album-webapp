@@ -19,13 +19,15 @@ public class UserController : ControllerBase
     public ActionResult RegisterUser([FromBody] RegisterUserDto dto)
     {
         _userService.RegisterUser(dto);
+        
         return Ok();
     }
 
     [HttpPost("login")]
     public ActionResult Login([FromBody] LoginDto dto)
     {
-        string token = _userService.GenerateJwtToken(dto);
+        var token = _userService.GenerateJwtToken(dto);
+        
         return Ok(token);
     }
     
