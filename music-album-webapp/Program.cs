@@ -35,6 +35,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("DistributionPolicy", b => b.RequireClaim("DistributionId"));
+});
+
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -43,6 +48,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDistributionService, DistributionService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
