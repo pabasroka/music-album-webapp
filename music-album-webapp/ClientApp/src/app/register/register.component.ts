@@ -25,15 +25,15 @@ export class RegisterComponent implements OnInit {
       email: '',
       password: '',
       confirmPassword: '',
-      firstName: '',
-      lastName: '',
+      firstName: null,
+      lastName: null,
       roleId: 2,
       distributionId: 4,
     });
   }
 
   submit(): void {
-    this.http.post("https://localhost:5001/api/users/register", this.form.getRawValue(), {
+    this.http.post("https://localhost:5003/api/users/register", this.form.getRawValue(), {
       responseType: 'text'
     })
       .subscribe({
