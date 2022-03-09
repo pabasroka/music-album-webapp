@@ -45,6 +45,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped<DataSeeder>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IDistributionService, DistributionService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
