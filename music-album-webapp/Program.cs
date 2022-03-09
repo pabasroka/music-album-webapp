@@ -49,6 +49,7 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IDistributionService, DistributionService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+builder.Services.AddScoped<IValidator<AlbumQuery>, AlbumQueryValidator>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 
 builder.Services.AddHttpContextAccessor();
@@ -85,6 +86,7 @@ app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(s =>
     {

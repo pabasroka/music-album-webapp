@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guards/auth-guard.service';
+import { AlbumCardComponent } from './album-card/album-card.component';
+import { TrackListComponent } from './track-list/track-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -24,7 +26,9 @@ export function tokenGetter() {
     NavigationComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    AlbumCardComponent,
+    TrackListComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,7 @@ export function tokenGetter() {
       { path: '',  component: HomeComponent, canActivate: [AuthGuard]},
       { path: 'login', component: LoginComponent, },
       { path: 'register', component: RegisterComponent, },
+      { path: 'tracks/:id', component: TrackListComponent, },
     ]),
     JwtModule.forRoot({
       config: {

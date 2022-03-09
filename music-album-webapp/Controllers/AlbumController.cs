@@ -18,7 +18,7 @@ public class AlbumController : ControllerBase
 
     [HttpGet]
     [Authorize(Policy = "DistributionPolicy")]
-    public ActionResult<IEnumerable<AlbumDto>> GetAll([FromBody] AlbumQuery query)
+    public ActionResult<IEnumerable<AlbumDto>> GetAll([FromQuery] AlbumQuery query)
     {
         var results = _albumService.GetAll(query);
 

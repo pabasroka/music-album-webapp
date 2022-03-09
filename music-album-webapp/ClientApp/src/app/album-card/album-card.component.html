@@ -1,0 +1,34 @@
+<div class="container mt-5 mb-5">
+  <div class="row row-cols-3 row-cols-lg-5 gap-3 align-items-center justify-content-center align-items-stretch">
+    <div class="card p-0 h-100" *ngFor="let album of albums">
+
+      <div class="card-header album-title">
+        {{ album.title}}
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ album.author}}
+        </h5>
+
+        <h6>
+          id: #{{ album.id }}
+        </h6>
+
+        <p class="card-text">
+          Rok wydania: {{ album.releaseYear }} <br/>
+          Nazwa wydawcy: {{ album.distributionName }} <br/>
+          <span *ngIf="album.version"> Wesja albumu: {{ album.version }} </span>
+        </p>
+
+        <div *ngIf="album.tracks && album.tracks.length > 0; else elseTracks">
+          <a class="btn" [routerLink]="['/tracks', album.id]">Lista tracków</a>
+        </div>
+        <ng-template #elseTracks>
+          <span class="empty-track-list"> Brak listy utworów! </span>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

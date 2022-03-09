@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4 p-5">
+    <h1>Katalog albumów</h1>
+    <h2 *ngIf="albums.length > 0 && albums[0].distributionName">
+      Wydawca:
+      <span class="distribution-name">{{ albums[0].distributionName }}</span>
+    </h2>
+  </div>
+</div>
+
+
+<app-album-card [albums]="albums"
+                *ngIf="albums.length > 0; else elseAlbum">
+</app-album-card>
+
+<ng-template #elseAlbum>
+  <div style="padding: 50px;">
+    <h1> Brak dostępnych albumów! </h1>
+  </div>
+</ng-template>
+
+
+
