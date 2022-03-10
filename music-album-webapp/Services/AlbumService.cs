@@ -9,6 +9,7 @@ namespace music_album_webapp.Services;
 public interface IAlbumService
 {
     IEnumerable<AlbumDto> GetAll(AlbumQuery query);
+    IEnumerable<TrackDto> GetTracksByAlbumId(int id);
 }
 
 public class AlbumService : IAlbumService
@@ -42,5 +43,25 @@ public class AlbumService : IAlbumService
 
         var results = _mapper.Map<List<AlbumDto>>(albums);
         return results;
+    }
+    
+    public IEnumerable<TrackDto> GetTracksByAlbumId(int id)
+    {
+        var distributionId = _userContextService.GetUserDistributionId;
+        
+        var tracks = _dataContext
+            .Albums
+            .Where(a => a.DistributionId == distributionId)
+            .Where(a => a.Id == id)
+            .SelectMany(a => a.Tracks)
+            .ToList();
+        
+        if (tracks is null)
+        {
+            throw new NotFoundException("Tracks not found");
+        }
+
+        var result = _mapper.Map<IEnumerable<TrackDto>>(tracks);
+        return result;
     }
 }

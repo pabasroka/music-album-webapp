@@ -25,4 +25,12 @@ public class AlbumController : ControllerBase
         return Ok(results);
     }
 
+    [HttpGet("tracks/{id}")]
+    [Authorize(Policy = "DistributionPolicy")]
+    public ActionResult<IEnumerable<AlbumDto>> GetAll([FromRoute] int id)
+    {
+        var results = _albumService.GetTracksByAlbumId(id);
+
+        return Ok(results);
+    }
 }
