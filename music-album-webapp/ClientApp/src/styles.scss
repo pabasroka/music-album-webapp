@@ -5,3 +5,9 @@
   --primary-color: #179f82;
   --secondary-color: #4dab9f;
 }
+
+.btn-main {
+  background: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}

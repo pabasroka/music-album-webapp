@@ -1,6 +1,6 @@
 ﻿export class Track {
 
-  constructor(id: number, title: string, author: string, releaseYear: number | null, duration: number | null) {
+  constructor(id: number, title: string, author: string, releaseYear: string | null, duration: string | null) {
     this.id = id;
     this.title = title;
     this.author = author;
@@ -11,6 +11,6 @@
   id: number;
   title: string;
   author: string;
-  releaseYear: number | null;
-  duration: number | null;
+  releaseYear: string | null;
+  duration: string | null;
 }

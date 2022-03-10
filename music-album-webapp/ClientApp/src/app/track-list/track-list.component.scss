@@ -1,0 +1,17 @@
+.header {
+  color: var(--primary-color)
+}
+
+.btn {
+  background: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: var(--secondary-color);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0);
+}

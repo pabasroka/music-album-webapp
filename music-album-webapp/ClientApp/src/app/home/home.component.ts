@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Album} from "../models/Album";
 import {Track} from "../models/Track";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',

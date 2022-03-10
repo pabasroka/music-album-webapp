@@ -1,0 +1,12 @@
+.navigation {
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  a {
+    color: white;
+
+    &:hover {
+      color: gray;
+    }
+  }
+}

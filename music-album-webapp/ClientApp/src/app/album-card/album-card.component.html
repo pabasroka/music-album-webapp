@@ -22,7 +22,7 @@
         </p>
 
         <div *ngIf="album.tracks && album.tracks.length > 0; else elseTracks">
-          <a class="btn" [routerLink]="['/tracks', album.id]">Lista tracków</a>
+          <a class="btn" (click)="navigateToTrackList(album.id)">Lista tracków</a>
         </div>
         <ng-template #elseTracks>
           <span class="empty-track-list"> Brak listy utworów! </span>
