@@ -4,5 +4,6 @@ public class AlbumQuery
 {
     public string SearchPhrase { get; set; }
     public string SortBy { get; set; }
+    public int? ReleaseYear { get; set; } = null;
     public SortDirection SortDirection { get; set; }
 }

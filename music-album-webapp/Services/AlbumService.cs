@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using music_album_webapp.Entities;
 using music_album_webapp.Exceptions;
@@ -29,17 +30,38 @@ public class AlbumService : IAlbumService
     {
         var distributionId = _userContextService.GetUserDistributionId;
 
-        var albums = _dataContext
+        var queryBuilder = _dataContext
             .Albums
             .Include(t => t.Tracks)
             .Include(d => d.Distribution)
             .Where(a => a.DistributionId == distributionId)
-            .ToList();
+            .Where(a => query.SearchPhrase == null || a.Author.ToLower().Contains(query.SearchPhrase.ToLower())
+                                                   || a.Title.ToLower().Contains(query.SearchPhrase.ToLower())
+                                                   || a.Id.ToString().Contains(query.SearchPhrase))
+            .Where(a => query.ReleaseYear == null || query.ReleaseYear == a.ReleaseYear);
 
-        if (albums is null)
+        if (queryBuilder is null)
         {
             throw new NotFoundException("Album not found");
         }
+
+        if (!string.IsNullOrEmpty(query.SortBy))
+        {
+            var columnsSelectors = new Dictionary<string, Expression<Func<Album, object>>>
+            {
+                {nameof(Album.ReleaseYear), a => a.ReleaseYear},
+                {nameof(Album.Author), a => a.Author},
+                {nameof(Album.Title), a => a.Title},
+            };
+
+            var selectedColumn = columnsSelectors[query.SortBy];
+
+            queryBuilder = query.SortDirection == SortDirection.Asc
+                ? queryBuilder.OrderBy(selectedColumn)
+                : queryBuilder.OrderByDescending(selectedColumn);
+        }
+
+        var albums = queryBuilder.ToList();
 
         var results = _mapper.Map<List<AlbumDto>>(albums);
         return results;

@@ -8,6 +8,60 @@
   </div>
 </div>
 
+<div class="row filter-section pl-5 pt-5">
+
+  <h4>Filtry oraz wyszukiwarka albumów</h4>
+
+  <p>
+    Wyszukaj albumu po numerze id, artyście, tytule lub wybierz rok wydania albumu
+  </p>
+
+  <div class="col-lg-4 col-lg-offset-4 mx-auto p-4">
+    <div class="input-group">
+      <input [(ngModel)]="searchPhrase" type="text" class="form-control" placeholder="Wyszukaj"/>
+      <span class="input-group-btn">
+        <button class="btn" type="button" (click)="search()">
+          <i class="bi bi-search"></i>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4 mx-auto p-4">
+
+      Rok wydania:
+      <select name="releaseYears" id="releaseYears" [(ngModel)]="releaseYear">
+        <option selected value="-1">
+          Wszystkie lata
+        </option>
+
+        <option
+          value="{{ releaseYear }}"
+          *ngFor="let releaseYear of releaseYears">
+          {{ releaseYear }}
+        </option>
+
+      </select>
+
+      Sortuj po:
+      <select name="sortBy" id="sortBy" [(ngModel)]="sortBy">
+        <option value="ReleaseYear" selected>Rok Wydania</option>
+        <option value="Author">Autor</option>
+        <option value="Title">Tytuł</option>
+      </select>
+
+      Sortuj:
+      <select name="sortDirection" id="sortDirection" [(ngModel)]="sortDirection">
+        <option value="0" selected>Rosnąco</option>
+        <option value="1">Malejąco</option>
+      </select>
+
+
+    </div>
+  </div>
+
+</div>
 
 <app-album-card [albums]="albums"
                 *ngIf="albums.length > 0; else elseAlbum">

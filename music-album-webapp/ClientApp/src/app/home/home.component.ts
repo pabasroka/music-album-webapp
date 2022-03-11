@@ -11,7 +11,14 @@ import {HttpClient} from "@angular/common/http";
 export class HomeComponent implements OnInit {
 
   albums: Array<Album> = [];
+  albumsWithoutFilters: Array<Album> = [];
   tracks: Array<Track> = [];
+  releaseYears: Set<number> = new Set<number>();
+  searchPhrase: string = "";
+  queryBody: string = "";
+  sortBy: string = "ReleaseYear";
+  sortDirection: number | null = 0;
+  releaseYear: number | null = -1;
 
   constructor(
     private http: HttpClient,
@@ -22,9 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   getAlbums(): void {
-    this.http.get("https://localhost:5003/api/albums", {
+    this.http.get(`https://localhost:5003/api/albums?${this.queryBody}`, {
       responseType: "text",
-      headers: {'Content-Type': 'application/json', 'charset': 'utf-8'}
     })
       .subscribe((data) => {
         const parsedData: Array<Album> = JSON.parse(data);
@@ -64,9 +70,22 @@ export class HomeComponent implements OnInit {
             newAlbum,
           );
 
+          this.albumsWithoutFilters.push(...this.albums);
+
           this.tracks = [];
+
+          if (album.releaseYear != null) {
+            this.releaseYears.add(album.releaseYear);
+          }
+
         })
       })
+  }
+
+  search(): void {
+    this.queryBody = `searchPhrase=${this.searchPhrase}&sortBy=${this.sortBy}&SortDirection=${this.sortDirection}&ReleaseYear=${this.releaseYear == -1 ? '' : this.releaseYear}`;
+    this.albums = [];
+    this.getAlbums();
   }
 
 }

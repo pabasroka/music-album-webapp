@@ -5,7 +5,7 @@ namespace music_album_webapp.Models.Validators;
 
 public class AlbumQueryValidator : AbstractValidator<AlbumQuery>
 {
-    private string[] _allowedSortByColumnNames =
+    private readonly string[] _allowedSortByColumnNames =
     {
         nameof(Album.Author),
         nameof(Album.Title),
