@@ -12,13 +12,13 @@
         </h5>
 
         <h6>
-          id: #{{ album.id }}
+          #{{ album.id }}
         </h6>
 
         <p class="card-text">
-          Rok wydania: {{ album.releaseYear }} <br/>
-          Nazwa wydawcy: {{ album.distributionName }} <br/>
-          <span *ngIf="album.version"> Wesja albumu: {{ album.version }} </span>
+          <b>Rok wydania:</b> {{ album.releaseYear }} <br/>
+          <b>Nazwa wydawcy:</b> {{ album.distributionName }} <br/>
+          <span *ngIf="album.version"> <b>Wesja albumu:</b> {{ album.version }} </span>
         </p>
 
         <div *ngIf="album.tracks && album.tracks.length > 0; else elseTracks">

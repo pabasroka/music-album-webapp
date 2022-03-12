@@ -71,6 +71,9 @@ export class TrackListComponent implements OnInit {
 
           this.tracks.push(
             newTrack,
+            newTrack,
+            newTrack,
+            newTrack,
           );
         })
       })
