@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
             );
           })
 
-          const newAlbum = new Album(
+          this.albums.push(
+            new Album(
             album.id,
             album.title,
             album.author,
@@ -56,19 +57,7 @@ export class HomeComponent implements OnInit {
             album.releaseYear,
             album.distributionName,
             this.tracks
-          )
-
-          this.albums.push(
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-            newAlbum,
-          );
+          ));
 
           this.albumsWithoutFilters.push(...this.albums);
 

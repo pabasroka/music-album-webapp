@@ -1,4 +1,9 @@
 <main class="form-signin">
+
+  <div class="alert alert-success" role="alert" *ngIf="accountCreatedAlert">
+    Konto zostało utworzone!
+  </div>
+
   <form [formGroup]="form" (submit)="submit()">
       <h1 class="h3 mb-3 fw-normal">Zaloguj się </h1>
 

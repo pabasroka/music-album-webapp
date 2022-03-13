@@ -38,16 +38,14 @@ export class TrackListComponent implements OnInit {
 
       this.tracks[index].duration = this.secondsToTime(duration);
     });
-
-    console.log(this.tracks);
   }
 
   secondsToTime(seconds: string): string {
     const sec = parseInt(seconds)
 
-    const h = Math.floor(sec / 3600).toString().padStart(2,'0'),
-      m = Math.floor(sec % 3600 / 60).toString().padStart(2,'0'),
-      s = Math.floor(sec % 60).toString().padStart(2,'0');
+    const h = Math.floor(sec / 3600).toString().padStart(2, '0'),
+      m = Math.floor(sec % 3600 / 60).toString().padStart(2, '0'),
+      s = Math.floor(sec % 60).toString().padStart(2, '0');
 
     return h + ':' + m + ':' + s;
   }
@@ -61,22 +59,17 @@ export class TrackListComponent implements OnInit {
         const parsedData: Array<Track> = JSON.parse(data);
         parsedData.forEach(track => {
 
-          const newTrack = new Track(
-            track.id,
-            track.author,
-            track.title,
-            track.releaseYear,
-            track.duration
-          );
-
           this.tracks.push(
-            newTrack,
-            newTrack,
-            newTrack,
-            newTrack,
+            new Track(
+              track.id,
+              track.author,
+              track.title,
+              track.releaseYear,
+              track.duration
+            )
           );
-        })
-      })
+        });
+      });
   }
 
 

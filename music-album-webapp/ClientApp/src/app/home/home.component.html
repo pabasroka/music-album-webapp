@@ -13,14 +13,14 @@
   <h4>Filtry oraz wyszukiwarka albumów</h4>
 
   <p class="pt-2">
-    Wyszukaj albumu po numerze id, artyście, tytule lub wybierz rok wydania albumu
+    Wyszukaj album po numerze id, artyście, tytule lub wybierz rok wydania albumu
   </p>
 
   <div class="col-lg-4 col-lg-offset-4 mx-auto search-bar">
     <div class="input-group">
-      <input [(ngModel)]="searchPhrase" type="text" class="form-control" placeholder="Wyszukaj"/>
-      <span class="input-group-btn">
-        <button class="btn" type="button" (click)="search()">
+      <input [(ngModel)]="searchPhrase" class="form-control py-2 border-right-0 border" type="search" value="Wyszukaj">
+      <span class="input-group-append">
+        <button class="btn btn-outline-secondary border-left-0 border" (click)="search()">
           <i class="bi bi-search"></i>
         </button>
       </span>

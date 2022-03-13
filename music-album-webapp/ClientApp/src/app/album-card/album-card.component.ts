@@ -23,8 +23,6 @@ export class AlbumCardComponent implements OnInit {
   }
 
   navigateToTrackList(id: number): void {
-    // this.router.navigate([`tracks/${id}`], { state: { tracks: this.albums[id].tracks } });
-
     const currentAlbum = this.albums.find(a => a.id == id);
     if (currentAlbum !== null && currentAlbum !== undefined) {
       currentAlbum.tracks?.forEach((track: any) => {

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,16 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   invalidLogin: boolean;
+  accountCreatedAlert: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    private accountService: AccountService,
+  ) {
+    this.accountCreatedAlert = accountService.isNewAccountCreated();
+  }
 
 
   ngOnInit(): void {

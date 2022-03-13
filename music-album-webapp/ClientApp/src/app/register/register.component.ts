@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ErrorHandler, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Distribution} from "../models/Distribution";
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-register',
@@ -18,8 +19,11 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
-  ) {}
+    private router: Router,
+    private accountService: AccountService,
+  ) {
+    accountService.changeAccountFlag(false);
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -60,6 +64,7 @@ export class RegisterComponent implements OnInit {
     })
       .subscribe({
         next: (response: string) => {
+          this.accountService.changeAccountFlag(true);
           this.router.navigate(['/'])
         },
         error: (error: any) => {

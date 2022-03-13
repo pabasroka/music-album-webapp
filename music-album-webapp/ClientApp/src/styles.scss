@@ -1,13 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap');
 
 :root {
   --primary-color: #38849b;
   --secondary-color: #c6dbea;
+
 }
 
 .btn-main {
   background: var(--primary-color);
   color: white;
   font-weight: 500;
+
+  &:hover {
+    color: var(--secondary-color);
+  }
+
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
 }
