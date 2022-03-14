@@ -9,7 +9,7 @@ namespace music_album_webapp.Services;
 
 public interface IAlbumService
 {
-    IEnumerable<AlbumDto> GetAll(AlbumQuery query);
+    Pagination<AlbumDto> GetAll(AlbumQuery query);
     IEnumerable<TrackDto> GetTracksByAlbumId(int id);
 }
 
@@ -26,7 +26,7 @@ public class AlbumService : IAlbumService
         _mapper = mapper;
     }
     
-    public IEnumerable<AlbumDto> GetAll(AlbumQuery query)
+    public Pagination<AlbumDto> GetAll(AlbumQuery query)
     {
         var distributionId = _userContextService.GetUserDistributionId;
 
@@ -61,9 +61,15 @@ public class AlbumService : IAlbumService
                 : queryBuilder.OrderByDescending(selectedColumn);
         }
 
-        var albums = queryBuilder.ToList();
+        var albums = queryBuilder
+            .Skip(query.PaginationSize * (query.CurrentPage - 1))
+            .Take(query.PaginationSize)
+            .ToList();
 
-        var results = _mapper.Map<List<AlbumDto>>(albums);
+        var albumsDtos = _mapper.Map<List<AlbumDto>>(albums);
+
+        var results = new Pagination<AlbumDto>(albumsDtos, queryBuilder.Count(), query.CurrentPage, query.PaginationSize);
+        
         return results;
     }
     

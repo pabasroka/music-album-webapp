@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div class="row filter-section pl-5 pt-4">
+<div class="row filter-section pt-5 pl-5 pr-5">
 
   <h4>Filtry oraz wyszukiwarka albumów</h4>
 
@@ -20,7 +20,7 @@
     <div class="input-group">
       <input [(ngModel)]="searchPhrase" class="form-control py-2 border-right-0 border" type="search" value="Wyszukaj">
       <span class="input-group-append">
-        <button class="btn btn-outline-secondary border-left-0 border" (click)="search()">
+        <button class="btn btn-outline-secondary border-left-0 border" (click)="searchWithFilters()">
           <i class="bi bi-search"></i>
         </button>
       </span>
@@ -43,7 +43,7 @@
             </option>
           </select>
         </div>
-        <div class="col-sm-4"> Sortuj po: <br/>
+        <div class="col-sm-4"> Sortuj według: <br/>
           <select class="form-select" name="sortBy" id="sortBy" [(ngModel)]="sortBy">
             <option value="ReleaseYear" selected>Rok Wydania</option>
             <option value="Author">Autor</option>
@@ -51,17 +51,64 @@
           </select>
         </div>
 
-        <div class="col-sm-4"> Sortuj: <br/>
+        <div class="col-sm-4"> Jak: <br/>
           <select class="form-select" name="sortDirection" id="sortDirection" [(ngModel)]="sortDirection">
             <option value="0" selected>Rosnąco</option>
             <option value="1">Malejąco</option>
           </select>
         </div>
 
+        <div class="col-sm-4"> Ile: <br/>
+          <select class="form-select" name="allowedPaginationSize" id="allowedPaginationSize" [(ngModel)]="paginationSize">
+            <ng-container *ngFor="let p of allowedPaginationSize">
+              <option
+                *ngIf="paginationSize == p; else elsePagin"
+                value="{{ p }}" selected>
+                {{ p }}
+              </option>
+
+              <ng-template #elsePagin>
+                <option
+                  value="{{ p }}" (click)="changePagination(p)">
+                  {{ p }}
+                </option>
+              </ng-template>
+            </ng-container>
+          </select>
+        </div>
+
       </div>
 
+        <ul class="pagination justify-content-center pt-5">
+
+          <li class="page-item">
+            <a class="page-link" href="#" tabindex="-1"
+               (click)="changePage(this.currentPage - 1)"
+               style="color: var(--primary-color)">Poprzednia</a>
+          </li>
+
+          <li class="page-item" *ngFor="let _ of [].constructor(totalPages); let i = index">
+            <a class="page-link" href="#"
+               *ngIf="currentPage - 1 == i; else elseItem"
+               style="background: var(--primary-color); color: white;"
+               (click)="changePage(i + 1)">{{ i + 1 }}</a>
+
+            <ng-template #elseItem>
+              <a class="page-link" href="#" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+            </ng-template>
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" href="#" (click)="changePage(this.currentPage + 1)"
+               style="color: var(--primary-color)">Następna</a>
+          </li>
+
+        </ul>
+
+      <p class="text-center"> Całkowita liczba albumów: {{ this.totalItems }} </p>
 
     </div>
+
   </div>
 
 </div>
